@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 import { Repository } from "../lib/repository.ts";
 
-const repo = new Repository();
+const repo = Repository.fromDirectory("./sources");
 
-console.log("executable is run", repo);
+console.log(`Present bibles:`);
+for (const bible of repo.bibles()) {
+  console.log(`  ${bible.id}`);
+}

@@ -20,6 +20,7 @@
     "url": "https://github.com/whiteand/bible-mcp.git"
   },
   "scripts": {
+    "start": "npm run build && node ./dist/bin.js",
     "dev": "vite",
     "build": "vite build",
     "badge:fallow": "npx fallow health --format badge > .github/badges/health.svg",
