@@ -3,11 +3,16 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+    "./lib": {
+      "import": "./dist/lib/index.js",
+      "types": "./dist/lib/index.d.ts"
+    },
+    "./bin": {
+      "import": "./dist/bin/index.js",
+      "types": "./dist/bin/index.d.ts"
     }
   },
+  "bin": "./dist/bin",
   "repository": {
     "type": "git",
     "url": "https://github.com/whiteand/bible-mcp.git"
@@ -34,7 +39,7 @@
     "vitest": "^5.0.3"
   },
   "dependencies": {
-    "quartet": "^11.0.4"
+    "@whiteand/mybible": "^0.0.7"
   },
   "optionalDependencies": {
     "fallow": "^3.30.0"

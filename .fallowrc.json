@@ -4,7 +4,9 @@
   "entry": [
     "src/index.ts"
   ],
-  "ignoreDependencies": ["fallow"],
+  "ignoreDependencies": [
+    "fallow"
+  ],
   "duplicates": {
     // Hide pair-only clones; focus on widespread copy-paste
     // worth refactoring. Lower to 2 to report every duplicate pair.
