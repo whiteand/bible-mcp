@@ -1,8 +1,14 @@
-import { isBibleModuleFilePath, readBibleModule } from "@whiteand/mybible";
+import {
+  isBibleModuleFilePath,
+  readBibleModule,
+  type BibleModule,
+} from "@whiteand/mybible";
 import fs from "node:fs";
 import path from "node:path";
 
-type BibleModule = ReturnType<typeof readBibleModule>;
+export interface FromDirectoryOptions {
+  readModule?: (filePath: string) => BibleModule;
+}
 
 export class Repository {
   constructor(public readonly biblesById: Map<string, BibleModule>) {}
@@ -11,19 +17,29 @@ export class Repository {
     return this.biblesById.values();
   }
 
-  static fromDirectory(sourceDirPath: string) {
-    const filenames = fs.readdirSync(sourceDirPath);
-    const bibleModuleFileNames = filenames.filter((x) =>
-      isBibleModuleFilePath(x),
-    );
-    const bibleModules = new Map(
-      bibleModuleFileNames.map((name) => {
-        const mod = readBibleModule(path.resolve(sourceDirPath, name));
+  static fromDirectory(
+    sourceDirPath: string,
+    { readModule = readBibleModule }: FromDirectoryOptions = {},
+  ) {
+    const fileNames = fs
+      .readdirSync(sourceDirPath)
+      .filter((name) => isBibleModuleFilePath(name))
+      .sort();
+    const biblesById = new Map<string, BibleModule>();
+    const fileNameById = new Map<string, string>();
 
-        return [mod.id, mod];
-      }),
-    );
+    for (const fileName of fileNames) {
+      const mod = readModule(path.resolve(sourceDirPath, fileName));
+      const existingFileName = fileNameById.get(mod.id);
+      if (existingFileName !== undefined) {
+        throw new Error(
+          `Duplicate bible module id "${mod.id}" in ${sourceDirPath}: ${existingFileName} and ${fileName}`,
+        );
+      }
+      fileNameById.set(mod.id, fileName);
+      biblesById.set(mod.id, mod);
+    }
 
-    return new Repository(bibleModules);
+    return new Repository(biblesById);
   }
 }

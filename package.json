@@ -25,7 +25,7 @@
     "build": "vite build",
     "badge:fallow": "npx fallow health --format badge > .github/badges/health.svg",
     "badge:coverage": "npm run test:coverage && node ./scripts/coverage-badge.mjs",
-    "badge": "npm run badge:fallow && npm run badge:coverage && git add .github/badges && git commit -m 'chore: update badges'",
+    "badge": "npm run badge:fallow && npm run badge:coverage",
     "preview": "vite preview",
     "prepublish": "npm run typecheck && npm run test && npm run build",
     "typecheck": "tsc --noEmit",
@@ -42,7 +42,7 @@
     "vitest": "^5.0.3"
   },
   "dependencies": {
-    "@whiteand/mybible": "^0.0.7"
+    "@whiteand/mybible": "^0.0.8"
   },
   "optionalDependencies": {
     "fallow": "^3.30.0"
