@@ -1,0 +1,11 @@
+node_modules
+.env*
+!.env.example
+*.log
+.DS_Store
+dist
+sources
+reports
+coverage
+.fallow/
+src/html/htmlRoundTrip.test.ts

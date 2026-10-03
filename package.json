@@ -1,0 +1,42 @@
+{
+  "name": "@whiteand/bible-mcp",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whiteand/bible-mcp.git"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "badge:fallow": "npx fallow health --format badge > .github/badges/health.svg",
+    "badge:coverage": "npm run test:coverage && node ./scripts/coverage-badge.mjs",
+    "badge": "npm run badge:fallow && npm run badge:coverage && git add .github/badges && git commit -m 'chore: update badges'",
+    "preview": "vite preview",
+    "prepublish": "npm run typecheck && npm run test && npm run build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/node": "^26",
+    "@vitest/coverage-v8": "5.0.3",
+    "typescript": "6",
+    "vite": "^8.3.1",
+    "vite-plugin-dts": "^5.1.1",
+    "vitest": "^5.0.3"
+  },
+  "dependencies": {
+    "quartet": "^11.0.4"
+  },
+  "optionalDependencies": {
+    "fallow": "^3.30.0"
+  }
+}
