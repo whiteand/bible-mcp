@@ -12,7 +12,7 @@
       "types": "./dist/bin/index.d.ts"
     }
   },
-  "bin": "./dist/bin",
+  "bin": "./dist/bin.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/whiteand/bible-mcp.git"
